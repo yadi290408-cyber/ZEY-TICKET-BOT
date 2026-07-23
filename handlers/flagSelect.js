@@ -10,7 +10,9 @@ const {
 const fs = require("fs");
 
 const products = require("../database/products.json");
-const config = require("../database/config.json");
+const config = {
+    token: process.env.TOKEN
+};
 
 
 const ordersPath =
