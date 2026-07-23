@@ -95,41 +95,65 @@ module.exports = async(interaction)=>{
 
 
 
+
+    const userAvatar =
+    interaction.user.displayAvatarURL({
+        dynamic:true,
+        size:1024
+    });
+
+
+
+
+
+
+
     const embed =
     new EmbedBuilder()
 
     .setColor("#FFD700")
 
+    .setAuthor({
+
+        name:
+        `${interaction.user.username} left a review`,
+
+        iconURL:
+        userAvatar
+
+    })
+
     .setTitle(
         "⭐ New Zey Store Review"
     )
 
+    .setThumbnail(
+        userAvatar
+    )
+
     .setDescription(`
+
+━━━━━━━━━━━━━━
 
 👤 **Customer**
 
-${name}
-
+${interaction.user}
 
 🛒 **Product**
 
 ${product}
 
-
 ⭐ **Service**
 
 ${service}
-
 
 👍 **Would Recommend**
 
 ${recommend}
 
-
 💬 **Review**
 
 ${message}
-
 
 ━━━━━━━━━━━━━━
 
@@ -137,7 +161,20 @@ ${message}
 
 `)
 
+    .setFooter({
+
+        text:
+        "Zey Store • Customer Reviews",
+
+        iconURL:
+        interaction.client.user.displayAvatarURL({
+            dynamic:true
+        })
+
+    })
+
     .setTimestamp();
+
 
 
 
