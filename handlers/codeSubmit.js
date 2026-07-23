@@ -6,7 +6,9 @@ const {
 } = require("discord.js");
 
 const fs = require("fs");
-const config = require("../database/config.json");
+const config = {
+    token: process.env.TOKEN
+};
 
 
 const ordersPath = "./database/orders.json";
