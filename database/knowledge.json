@@ -1,0 +1,26 @@
+{
+    "store": {
+        "name": "Zey Store",
+        "description": "Premium Roblox flag store"
+    },
+
+    "purchase": {
+        "answer": "To purchase a flag, open a ticket, select your flag, wait for staff approval and follow the instructions."
+    },
+
+    "delivery": {
+        "answer": "Orders are processed by staff. Delivery time depends on availability and current order volume."
+    },
+
+    "payment": {
+        "answer": "Follow the official payment instructions provided inside your order ticket."
+    },
+
+    "support": {
+        "answer": "Our AI assistant is available 24/7. Staff members handle final order approval."
+    },
+
+    "security": {
+        "answer": "Never share private information. Only use official Zey Store tickets."
+    }
+}

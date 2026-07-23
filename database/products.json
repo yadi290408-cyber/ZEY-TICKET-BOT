@@ -1,0 +1,37 @@
+[
+    {
+        "id": "op",
+        "name": "OP Flag",
+        "price": 10,
+        "emoji": "🔥",
+        "g2a": "https://www.g2a.com/paypal-gift-card-10-usd-by-rewarble-global-i10000339995012"
+    },
+    {
+        "id": "elite",
+        "name": "Elite Flag",
+        "price": 15,
+        "emoji": "⭐",
+        "g2a": "https://www.g2a.com/paypal-gift-card-15-usd-by-rewarble-global-i10000339995026"
+    },
+    {
+        "id": "personal",
+        "name": "Personal Flag",
+        "price": 20,
+        "emoji": "💎",
+        "g2a": "https://www.g2a.com/paypal-gift-card-20-usd-by-rewarble-global-i10000339995011"
+    },
+    {
+        "id": "secret",
+        "name": "Secret Flag",
+        "price": 25,
+        "emoji": "🔐",
+        "g2a": "https://www.g2a.com/paypal-gift-card-25-usd-by-rewarble-global-i10000339995010"
+    },
+    {
+        "id": "phantom",
+        "name": "Phantom Flag",
+        "price": 30,
+        "emoji": "👻",
+        "g2a": "https://www.g2a.com/paypal-gift-card-30-usd-by-rewarble-global-i10000339995008"
+    }
+]

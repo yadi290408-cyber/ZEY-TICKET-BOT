@@ -1,0 +1,36 @@
+[
+    {
+        "name":"OP Flag",
+        "price":"$10",
+        "emoji":"⭐",
+        "color":"#FFD700"
+    },
+
+    {
+        "name":"Elite Flag",
+        "price":"$15",
+        "emoji":"💎",
+        "color":"#00FFFF"
+    },
+
+    {
+        "name":"Personal Flag",
+        "price":"$20",
+        "emoji":"🔥",
+        "color":"#FF4500"
+    },
+
+    {
+        "name":"Secret Flag",
+        "price":"$25",
+        "emoji":"👑",
+        "color":"#9B59B6"
+    },
+
+    {
+        "name":"Phantom Flag",
+        "price":"$30",
+        "emoji":"👻",
+        "color":"#2ECC71"
+    }
+]
