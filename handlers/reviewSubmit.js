@@ -2,9 +2,9 @@ const {
     EmbedBuilder
 } = require("discord.js");
 
-const config = {
-    token: process.env.TOKEN
-};
+const config =
+require("../database/config.json");
+
 
 
 module.exports = async(interaction)=>{
@@ -14,15 +14,48 @@ module.exports = async(interaction)=>{
         return;
 
 
-    if(interaction.customId !== "submit_review")
+    if(
+        interaction.customId !== "submit_review"
+    )
         return;
 
 
 
+    console.log("REVIEW MODAL");
+
+
+
+    const review =
+    interaction.fields.getTextInputValue(
+        "review_text"
+    );
+
+
+
+
     const channel =
-    await interaction.guild.channels.fetch(
+    interaction.guild.channels.cache.get(
         config.reviewsChannel
     );
+
+
+
+
+    if(!channel){
+
+        return interaction.reply({
+
+            content:
+            "❌ Review channel not found.",
+
+            ephemeral:true
+
+        });
+
+    }
+
+
+
 
 
 
@@ -35,64 +68,31 @@ module.exports = async(interaction)=>{
         "⭐ New Zey Store Review"
     )
 
-    .setThumbnail(
-        interaction.user.displayAvatarURL({
-            dynamic:true,
-            size:1024
-        })
-    )
-
     .setDescription(`
 
-👤 **Discord User**
+👤 Customer
+
 ${interaction.user}
 
 
-🆔 **User ID**
-\`${interaction.user.id}\`
+━━━━━━━━━━━━━━
 
 
-🛒 **Product**
-${interaction.fields.getTextInputValue(
-    "review_product"
-)}
+💬 Review
+
+${review}
 
 
-⭐ **Service**
-${interaction.fields.getTextInputValue(
-    "review_service"
-)}
+━━━━━━━━━━━━━━
 
 
-👍 **Would Recommend**
-${interaction.fields.getTextInputValue(
-    "review_recommend"
-)}
-
-
-💬 **Review**
-
-${interaction.fields.getTextInputValue(
-    "review_message"
-)}
+❤️ Thank you for choosing Zey Store
 
 `)
 
-
-    .setFooter({
-
-        text:
-        `Review from ${interaction.user.username}`,
-
-        iconURL:
-        interaction.user.displayAvatarURL({
-            dynamic:true
-        })
-
-    })
-
-
     .setTimestamp();
+
+
 
 
 
@@ -104,6 +104,7 @@ ${interaction.fields.getTextInputValue(
         ]
 
     });
+
 
 
 
