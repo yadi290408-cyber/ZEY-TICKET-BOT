@@ -2,8 +2,9 @@ const {
     EmbedBuilder
 } = require("discord.js");
 
-const config =
-require("../database/config.json");
+const config = {
+    token: process.env.TOKEN
+};
 
 
 module.exports = async(interaction)=>{
