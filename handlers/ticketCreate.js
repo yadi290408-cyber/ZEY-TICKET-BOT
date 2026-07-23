@@ -1,80 +1,111 @@
 const {
-ChannelType,
-PermissionFlagsBits,
-EmbedBuilder,
-ActionRowBuilder,
-ButtonBuilder,
-ButtonStyle
-}=require("discord.js");
+    ChannelType,
+    PermissionFlagsBits,
+    EmbedBuilder,
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle
+} = require("discord.js");
 
-const config=require("../database/config.json");
 
 
 async function createTicket(interaction){
 
 
-const guild=interaction.guild;
+    const guild = interaction.guild;
 
 
-const channel =
-await guild.channels.create({
 
-name:`order-${interaction.user.username}`,
+    const ticketCategory =
+    process.env.TICKET_CATEGORY;
 
-type:ChannelType.GuildText,
 
-parent:config.ticketCategory,
 
-permissionOverwrites:[
-
-{
-id:guild.id,
-deny:[
-PermissionFlagsBits.ViewChannel
-]
-},
-
-{
-id:interaction.user.id,
-allow:[
-PermissionFlagsBits.ViewChannel,
-PermissionFlagsBits.SendMessages
-]
-},
-
-{
-id:config.staffRole,
-allow:[
-PermissionFlagsBits.ViewChannel,
-PermissionFlagsBits.SendMessages
-]
-}
-
-]
-
-});
+    const staffRole =
+    process.env.STAFF_ROLE;
 
 
 
 
-const orderNumber =
-"ZS-" + Math.floor(
-100000 + Math.random()*900000
-);
+    const channel =
+    await guild.channels.create({
+
+        name:`order-${interaction.user.username}`,
+
+        type:ChannelType.GuildText,
+
+        parent:ticketCategory,
+
+        permissionOverwrites:[
+
+
+            {
+                id:guild.id,
+
+                deny:[
+                    PermissionFlagsBits.ViewChannel
+                ]
+
+            },
+
+
+            {
+                id:interaction.user.id,
+
+                allow:[
+
+                    PermissionFlagsBits.ViewChannel,
+                    PermissionFlagsBits.SendMessages
+
+                ]
+
+            },
+
+
+            {
+                id:staffRole,
+
+                allow:[
+
+                    PermissionFlagsBits.ViewChannel,
+                    PermissionFlagsBits.SendMessages
+
+                ]
+
+            }
+
+
+        ]
+
+    });
 
 
 
 
-const embed =
-new EmbedBuilder()
 
-.setColor("#5865F2")
 
-.setTitle("🚩 ZEY STORE ORDER")
+    const orderNumber =
+    "ZS-" + Math.floor(
+        100000 + Math.random()*900000
+    );
 
-.setDescription(`
 
-Welcome to Zey Store.
+
+
+
+
+    const embed =
+    new EmbedBuilder()
+
+    .setColor("#5865F2")
+
+    .setTitle(
+        "🚩 ZEY STORE ORDER"
+    )
+
+    .setDescription(`
+
+Welcome to **Zey Store**.
 
 ━━━━━━━━━━━━━━
 
@@ -91,69 +122,96 @@ ${interaction.user}
 
 Please select your product and submit your payment code.
 
-`)
+    `)
 
-.setFooter({
-text:"Zey Store AI • Premium Service"
-});
+    .setFooter({
 
+        text:
+        "Zey Store AI • Premium Service"
 
+    })
 
-
-
-const buttons =
-new ActionRowBuilder()
-
-.addComponents(
-
-new ButtonBuilder()
-
-.setCustomId("claim_order")
-
-.setLabel("👤 Claim Order")
-
-.setStyle(ButtonStyle.Primary),
-
-
-new ButtonBuilder()
-
-.setCustomId("close_ticket")
-
-.setLabel("🔒 Close Ticket")
-
-.setStyle(ButtonStyle.Danger)
-
-);
+    .setTimestamp();
 
 
 
 
-await channel.send({
-
-content:
-`${interaction.user}`,
-
-embeds:[
-embed
-],
-
-components:[
-buttons
-]
-
-});
 
 
 
+    const buttons =
+    new ActionRowBuilder()
 
-await interaction.reply({
+    .addComponents(
 
-content:
-`✅ Ticket created: ${channel}`,
+        new ButtonBuilder()
 
-ephemeral:true
+        .setCustomId(
+            "claim_order"
+        )
 
-});
+        .setLabel(
+            "👤 Claim Order"
+        )
+
+        .setStyle(
+            ButtonStyle.Primary
+        ),
+
+
+
+        new ButtonBuilder()
+
+        .setCustomId(
+            "close_ticket"
+        )
+
+        .setLabel(
+            "🔒 Close Ticket"
+        )
+
+        .setStyle(
+            ButtonStyle.Danger
+        )
+
+    );
+
+
+
+
+
+
+
+    await channel.send({
+
+        content:
+        `${interaction.user}`,
+
+        embeds:[
+            embed
+        ],
+
+        components:[
+            buttons
+        ]
+
+    });
+
+
+
+
+
+
+
+    await interaction.reply({
+
+        content:
+        `✅ Ticket created: ${channel}`,
+
+        ephemeral:true
+
+    });
+
 
 
 }
@@ -161,6 +219,8 @@ ephemeral:true
 
 
 
-module.exports={
-createTicket
+module.exports = {
+
+    createTicket
+
 };
