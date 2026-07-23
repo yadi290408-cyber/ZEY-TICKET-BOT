@@ -3,8 +3,9 @@ const {
 } = require("discord.js");
 
 const products = require("../database/products.json");
-const config = require("../database/config.json");
-
+const config = {
+    token: process.env.TOKEN
+};
 
 
 module.exports = async(message)=>{
