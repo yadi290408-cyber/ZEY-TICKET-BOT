@@ -14,7 +14,9 @@ const {
     ActionRowBuilder
 } = require("discord.js");
 
-const config = require("./database/config.json");
+const config = {
+    token: process.env.TOKEN
+};
 
 
 const client = new Client({
@@ -513,6 +515,4 @@ ephemeral:true
 
 
 
-client.login(
-config.token || process.env.TOKEN
-);
+client.login(config.token);
