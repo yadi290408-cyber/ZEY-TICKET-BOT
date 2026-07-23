@@ -13,16 +13,11 @@ const ordersPath =
 
 
 
-const ordersChannel =
-process.env.ORDERS_CHANNEL;
-
-
-
-
 function loadOrders(){
 
     if(!fs.existsSync(ordersPath))
         return [];
+
 
     return JSON.parse(
         fs.readFileSync(
@@ -32,7 +27,6 @@ function loadOrders(){
     );
 
 }
-
 
 
 
@@ -48,8 +42,6 @@ function saveOrders(data){
     );
 
 }
-
-
 
 
 
@@ -70,6 +62,9 @@ module.exports = async(interaction)=>{
 
 
 
+    console.log("CODE MODAL");
+
+
 
     const code =
     interaction.fields.getTextInputValue(
@@ -87,10 +82,8 @@ module.exports = async(interaction)=>{
 
 
 
-
     let orders =
     loadOrders();
-
 
 
 
@@ -106,12 +99,14 @@ module.exports = async(interaction)=>{
 
 
 
-
     if(!order){
 
-        return interaction.editReply(
+        return interaction.editReply({
+
+            content:
             "❌ Order not found."
-        );
+
+        });
 
     }
 
@@ -124,7 +119,6 @@ module.exports = async(interaction)=>{
 
     order.status =
     "Reviewing";
-
 
 
 
@@ -150,17 +144,44 @@ module.exports = async(interaction)=>{
 
 
 
+    // ORDERS CHANNEL
+
+    const ordersChannelId =
+    "1529646238515855539";
 
 
-    const channel =
+
+    const ordersChannel =
     interaction.guild.channels.cache.get(
-        ordersChannel
+        ordersChannelId
     );
 
 
 
-    if(!channel)
+    console.log(
+        "ORDERS CHANNEL:",
+        ordersChannelId
+    );
+
+
+    console.log(
+        "FOUND CHANNEL:",
+        ordersChannel?.name
+    );
+
+
+
+
+
+    if(!ordersChannel){
+
+        console.log(
+            "❌ Orders channel not found"
+        );
+
         return;
+
+    }
 
 
 
@@ -183,35 +204,35 @@ module.exports = async(interaction)=>{
 
 ━━━━━━━━━━━━━━
 
-👤 Customer
+👤 **Customer**
 
 <@${order.user}>
 
 
-🚩 Product
+🚩 **Product**
 
 ${order.product}
 
 
-💰 Price
+💰 **Price**
 
 $${order.price}
 
 
-🆔 Order ID
+🆔 **Order ID**
 
 \`${order.id}\`
 
 
-🔑 Gift Card Code
+🔑 **Gift Code**
 
 \`${code}\`
 
 ━━━━━━━━━━━━━━
 
-Status:
+📊 **Status**
 
-🟡 Waiting Approval
+🔵 Reviewing
 
 ━━━━━━━━━━━━━━
 
@@ -232,19 +253,22 @@ Status:
 
 
 
+
     const buttons =
     new ActionRowBuilder()
 
     .addComponents(
 
+
+
         new ButtonBuilder()
 
         .setCustomId(
-            `accept_order_${order.id}`
+            `accept_order_${order.ticket}`
         )
 
         .setLabel(
-            "✅ Accept"
+            "✅ Accept Order"
         )
 
         .setStyle(
@@ -253,19 +277,21 @@ Status:
 
 
 
+
         new ButtonBuilder()
 
         .setCustomId(
-            `deny_order_${order.id}`
+            `deny_order_${order.ticket}`
         )
 
         .setLabel(
-            "❌ Deny"
+            "❌ Deny Order"
         )
 
         .setStyle(
             ButtonStyle.Danger
         )
+
 
     );
 
@@ -275,14 +301,17 @@ Status:
 
 
 
-    await channel.send({
+
+    await ordersChannel.send({
 
         content:
         "🔔 New order waiting for review!",
 
+
         embeds:[
             embed
         ],
+
 
         components:[
             buttons
