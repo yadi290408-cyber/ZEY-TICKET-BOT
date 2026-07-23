@@ -2,8 +2,9 @@ const {
     EmbedBuilder
 } = require("discord.js");
 
-const config =
-require("../database/config.json");
+
+const reviewsChannel =
+process.env.REVIEWS_CHANNEL;
 
 
 
@@ -12,6 +13,7 @@ module.exports = async(interaction)=>{
 
     if(!interaction.isModalSubmit())
         return;
+
 
 
     if(
@@ -33,10 +35,12 @@ module.exports = async(interaction)=>{
 
 
 
+
     const channel =
     interaction.guild.channels.cache.get(
-        config.reviewsChannel
+        reviewsChannel
     );
+
 
 
 
@@ -70,7 +74,7 @@ module.exports = async(interaction)=>{
 
     .setDescription(`
 
-👤 Customer
+👤 **Customer**
 
 ${interaction.user}
 
@@ -78,7 +82,7 @@ ${interaction.user}
 ━━━━━━━━━━━━━━
 
 
-💬 Review
+💬 **Review**
 
 ${review}
 
@@ -86,7 +90,7 @@ ${review}
 ━━━━━━━━━━━━━━
 
 
-❤️ Thank you for choosing Zey Store
+❤️ Thank you for choosing **Zey Store**
 
 `)
 
@@ -104,6 +108,7 @@ ${review}
         ]
 
     });
+
 
 
 
