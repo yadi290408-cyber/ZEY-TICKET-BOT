@@ -10,13 +10,20 @@ const {
 const fs = require("fs");
 
 const products = require("../database/products.json");
-const config = {
-    token: process.env.TOKEN
-};
 
 
 const ordersPath =
 "./database/orders.json";
+
+
+
+const ticketCategory =
+process.env.TICKET_CATEGORY;
+
+
+const staffRole =
+process.env.STAFF_ROLE;
+
 
 
 
@@ -61,12 +68,10 @@ module.exports = async(interaction)=>{
         return;
 
 
-
     if(
         interaction.customId !== "flag_select"
     )
         return;
-
 
 
 
@@ -137,7 +142,7 @@ module.exports = async(interaction)=>{
 
 
         parent:
-        config.ticketCategory,
+        ticketCategory,
 
 
 
@@ -168,7 +173,7 @@ module.exports = async(interaction)=>{
 
             {
                 id:
-                config.staffRole,
+                staffRole,
 
                 allow:[
                     PermissionFlagsBits.ViewChannel,
@@ -269,11 +274,7 @@ After payment, press **Submit Code** and send your gift card code.
 
 Zey Store AI • Premium Service
 
-`)
-
-
-
-
+`);
 
 
 
@@ -281,8 +282,6 @@ Zey Store AI • Premium Service
     new ActionRowBuilder()
 
     .addComponents(
-
-
 
         new ButtonBuilder()
 
@@ -297,8 +296,6 @@ Zey Store AI • Premium Service
         .setURL(
             product.g2a
         ),
-
-
 
 
 
@@ -318,8 +315,6 @@ Zey Store AI • Premium Service
 
 
 
-
-
         new ButtonBuilder()
 
         .setCustomId(
@@ -333,8 +328,6 @@ Zey Store AI • Premium Service
         .setStyle(
             ButtonStyle.Secondary
         ),
-
-
 
 
 
@@ -352,7 +345,6 @@ Zey Store AI • Premium Service
             ButtonStyle.Danger
         )
 
-
     );
 
 
@@ -364,7 +356,7 @@ Zey Store AI • Premium Service
     await ticket.send({
 
         content:
-        `<@${interaction.user.id}> <@&${config.staffRole}>`,
+        `<@${interaction.user.id}> <@&${staffRole}>`,
 
         embeds:[
             embed
