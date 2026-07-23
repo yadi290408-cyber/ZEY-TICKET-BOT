@@ -1,104 +1,117 @@
 const {
-EmbedBuilder
+    EmbedBuilder
 } = require("discord.js");
 
-const config =
-require("../database/config.json");
+
+const reviewsChannel =
+"1432895961922801667";
 
 
 
 module.exports = async(interaction)=>{
 
 
-if(!interaction.isModalSubmit())
-return;
+    if(!interaction.isModalSubmit())
+        return;
 
 
 
-if(
-interaction.customId !== "submit_review"
-)
-return;
-
-
-
-
-
-const review =
-interaction.fields.getTextInputValue(
-"review_text"
-);
+    if(
+        interaction.customId !== "submit_review"
+    )
+        return;
 
 
 
 
 
-
-const channel =
-interaction.guild.channels.cache.get(
-config.reviewsChannel
-);
+    const review =
+    interaction.fields.getTextInputValue(
+        "review_text"
+    );
 
 
 
 
 
 
-if(channel){
+    const channel =
+    interaction.guild.channels.cache.get(
+        reviewsChannel
+    );
 
 
-const embed =
-new EmbedBuilder()
 
-.setColor("#FFD700")
 
-.setTitle(
-"⭐ New Customer Review"
-)
 
-.setDescription(`
 
+    if(channel){
+
+
+        const embed =
+        new EmbedBuilder()
+
+        .setColor("#FFD700")
+
+        .setTitle(
+            "⭐ New Customer Review"
+        )
+
+        .setDescription(`
+
+👤 Customer:
 ${interaction.user}
 
+🆔 User ID:
+\`${interaction.user.id}\`
+
 ━━━━━━━━━━━━━━
+
+💬 Review:
 
 ${review}
 
 ━━━━━━━━━━━━━━
 
-Thank you for choosing Zey Store ❤️
+Thank you for choosing **Zey Store** ❤️
 
-`)
+        `)
 
-.setTimestamp();
+        .setThumbnail(
+            interaction.user.displayAvatarURL({
+                dynamic:true
+            })
+        )
 
-
-
-
-
-await channel.send({
-
-embeds:[
-embed
-]
-
-});
-
-
-}
+        .setTimestamp();
 
 
 
+        await channel.send({
+
+            embeds:[
+                embed
+            ]
+
+        });
 
 
-await interaction.reply({
+    }
 
-content:
-"✅ Thank you for your review!",
 
-ephemeral:true
 
-});
+
+
+
+
+    await interaction.reply({
+
+        content:
+        "✅ Thank you for your review!",
+
+        ephemeral:true
+
+    });
 
 
 
