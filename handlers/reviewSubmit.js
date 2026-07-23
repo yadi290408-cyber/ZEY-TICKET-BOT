@@ -15,7 +15,6 @@ module.exports = async(interaction)=>{
         return;
 
 
-
     if(
         interaction.customId !== "submit_review"
     )
@@ -27,10 +26,41 @@ module.exports = async(interaction)=>{
 
 
 
-    const review =
+
+
+    const name =
     interaction.fields.getTextInputValue(
-        "review_text"
+        "review_name"
     );
+
+
+
+    const product =
+    interaction.fields.getTextInputValue(
+        "review_product"
+    );
+
+
+
+    const service =
+    interaction.fields.getTextInputValue(
+        "review_service"
+    );
+
+
+
+    const recommend =
+    interaction.fields.getTextInputValue(
+        "review_recommend"
+    );
+
+
+
+    const message =
+    interaction.fields.getTextInputValue(
+        "review_message"
+    );
+
 
 
 
@@ -40,6 +70,7 @@ module.exports = async(interaction)=>{
     interaction.guild.channels.cache.get(
         reviewsChannel
     );
+
 
 
 
@@ -63,6 +94,7 @@ module.exports = async(interaction)=>{
 
 
 
+
     const embed =
     new EmbedBuilder()
 
@@ -76,19 +108,30 @@ module.exports = async(interaction)=>{
 
 👤 **Customer**
 
-${interaction.user}
+${name}
 
 
-━━━━━━━━━━━━━━
+🛒 **Product**
+
+${product}
+
+
+⭐ **Service**
+
+${service}
+
+
+👍 **Would Recommend**
+
+${recommend}
 
 
 💬 **Review**
 
-${review}
+${message}
 
 
 ━━━━━━━━━━━━━━
-
 
 ❤️ Thank you for choosing **Zey Store**
 
